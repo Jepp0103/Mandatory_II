@@ -1,0 +1,24 @@
+{
+  "name": "mandatory_ii",
+  "version": "1.0.0",
+  "description": "mandatory_ii",
+  "main": "app.js",
+  "scripts": {
+    "createdb": "knex migrate:rollback && knex migrate:latest && knex seed:run",
+    "migrate:latest": "knex migrate:latest",
+    "migrate:make": "knex migrate:make",
+    "migrate:rollback": "knex migrate:rollback",
+    "seed:make": "knex seed:make",
+    "seed:run": "knex seed:run",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jeppe",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.21.1",
+    "mysql": "^2.18.1",
+    "objection": "^2.1.3"
+  }
+}
