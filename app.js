@@ -1,10 +1,32 @@
-const express = require('express');
+const express = require("express");
 const app = express();
+const mysql = require('mysql');
+const session = require('express-session');
+const bodyParser = require('body-parser');
 
+//Passing jSON-objects and form data in HTML-files.
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 
-/* Setup Knex with Objection */
 
+app.use(session({
+	secret: 'secret',
+	resave: false,
+	saveUninitialized: true
+}));
+
+/* Setup the routes with app */
+const authRoute = require('./routes/auth.js');
+const usersRoute = require('./routes/users.js');
+
+app.use(authRoute);
+app.use(usersRoute);
+
+//Using static files
+app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public/home'));
+
+/* Setup Knex with Objection */
 const { Model } = require('objection');
 const Knex = require('knex');
 const knexfile = require('./knexfile.js');
@@ -13,14 +35,12 @@ const knex = Knex(knexfile.development);
 
 Model.knex(knex);
 
-/* Setup the routes with app */
+//HTML route
+app.get("/", (req, res) => {
+    return res.sendFile(__dirname + "/public/login.html");
+ });
 
-/*  */
-const authRoute = require('./routes/auth.js');
-const usersRoute = require('./routes/users.js');
 
-app.use(authRoute);
-app.use(usersRoute);
 
 
 

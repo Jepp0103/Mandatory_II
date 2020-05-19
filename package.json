@@ -4,6 +4,8 @@
   "description": "mandatory_ii",
   "main": "app.js",
   "scripts": {
+    "start": "cross-env PORT=80 node app.js",
+    "start-dev": "cross-env PORT=3000 nodemon app.js",
     "createdb": "knex migrate:rollback && knex migrate:latest && knex seed:run",
     "migrate:latest": "knex migrate:latest",
     "migrate:make": "knex migrate:make",
@@ -17,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "knex": "^0.21.1",
     "mysql": "^2.18.1",
     "objection": "^2.1.3"
