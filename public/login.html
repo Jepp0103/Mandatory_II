@@ -8,13 +8,15 @@
 		<div class="login-form">
 			<h1>Log ind</h1>
 			<form action="/home" method="POST">
-				<input type="text" name="username" placeholder="Brugernavn" required>
-				<input type="password" name="password" placeholder="Adgangskode" required>
-				<input type="submit" name="login" value="Log ind">
+				<input type="text" name="username" placeholder="Username" required>
+				<input type="password" name="password" placeholder="Password" required>
+				<input type="submit" name="login" value="Sign in">
 			</form>
 		</div>
 		<h2>Not registred? Sign up here:</h2>
 		<form action="/signUp" method="GET">
 			<button name="signUp">Sign up</button>
+		</form>
+		<script type="module" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	</body>
 </html>

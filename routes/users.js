@@ -4,7 +4,6 @@ const User = require('../models/User.js');
 
 const fs = require("fs");
 
-
 router.get('/users', async (req, res) => {
     const allUsersWithElectives = await User.query().select('username').withGraphFetched('electives');
     return res.send({ response: allUsersWithElectives });
@@ -15,6 +14,8 @@ router.get("/signUp", (req, res) => {
     return res.send(page);
 });
 
+
+//No redirecting created yet
 router.post('/signUp', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;

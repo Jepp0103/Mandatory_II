@@ -8,19 +8,25 @@ const bodyParser = require('body-parser');
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 
+// You need to copy the config.template.json file and fill out your own secret
+const config = require('./config/config.template.json');
 
 app.use(session({
-	secret: 'secret',
+	secret: config.sessionSecret,
 	resave: false,
 	saveUninitialized: true
 }));
 
+
+
 /* Setup the routes with app */
 const authRoute = require('./routes/auth.js');
 const usersRoute = require('./routes/users.js');
+const electivesRoute = require('./routes/electives.js');
 
 app.use(authRoute);
 app.use(usersRoute);
+app.use(electivesRoute);
 
 //Using static files
 app.use(express.static(__dirname + '/public'));
@@ -42,8 +48,6 @@ app.get("/", (req, res) => {
 
 
 
-
-
 const PORT = 3000;
 
 app.listen(PORT, (error) => {
@@ -51,4 +55,4 @@ app.listen(PORT, (error) => {
         console.log(error);
     }
     console.log("Server is running on the port", PORT);
-})
+});
