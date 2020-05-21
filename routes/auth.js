@@ -13,10 +13,10 @@ const swal = require('sweetAlert');
 
 
 router.get("/login", (req, res) => {
-    bcrypt.compare("password", "$2b$12$ivRBaGRMAc5VSV68QVkBsel8Im6xv6ybGZU55QTRNN8W3ufmPG8da")
+    bcrypt.compare("password", "$2b$12$ivRBaGRMAc5VSV68QVkBsel8Im6xv6ybGZU55QTRNN8W3ufmPG8da");
 	const page = fs.readFileSync("./public/login.html", "utf8");
     return res.send(page);
- });
+});
 
 
 router.get("/home", (req, res) => {

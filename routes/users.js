@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const bcrypt = require('bcrypt');
+const saltRounds = 12;
 
 const User = require('../models/User.js');
 
@@ -35,12 +37,14 @@ router.post('/signUp', (req, res) => {
                     if (foundUser.length > 0) {
                         return res.status(400).send({ response: "User already exists" });
                     } else {
+                        bcrypt.hash(password, saltRounds).then(hashedPassword => {
                         User.query().insert({
                             username,
-                            password
+                            password : hashedPassword
                         }).then(createdUser => {
                             return res.send({ response: `The user ${createdUser.username} was created` });  
                         });
+                      });
                     }
                 });
             } catch (error) {

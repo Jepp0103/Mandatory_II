@@ -35,7 +35,7 @@ router.post('/nodeMailer', (req, res) => {
     });
   
     // send mail with defined transport object
-    let mailInfo = {
+    let info = {
       from: '"Jeppe" <jeppendyekjaer@gmail.com>', // sender address
       to: "nannestadhansen@gmail.com", // list of receivers
       subject: "Mail message", // Subject line
@@ -43,7 +43,7 @@ router.post('/nodeMailer', (req, res) => {
       html: senderOutput // html body
     };
 
-    transporter.sendMail(mailInfo, (error, info) => {
+    transporter.sendMail(info, (error, info) => {
         if (error) {
             return console.log(error);
         }
