@@ -37,7 +37,7 @@ router.get("/username", (req, res) => {
 
 
 //Checks if the user input is the same as in the database. Haven't 
-router.post('/home', async (req, res) => {
+router.post('/home', async (req, res) => { //Requires login to access page.
     const { username, password } = req.body;
     try {
         const accountInfo = await User.query().select("username", "password").where("username", username);

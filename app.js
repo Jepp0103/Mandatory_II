@@ -3,8 +3,9 @@ const app = express();
 const mysql = require('mysql');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const nodemailer = require("nodemailer");
 
-//Passing jSON-objects and form data in HTML-files.
+//Passing jSON-objects and form data in HTML-files. Middleware
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 
@@ -23,10 +24,13 @@ app.use(session({
 const authRoute = require('./routes/auth.js');
 const usersRoute = require('./routes/users.js');
 const electivesRoute = require('./routes/electives.js');
+const nodeMailerRoute = require('./routes/nodeMailer.js');
+
 
 app.use(authRoute);
 app.use(usersRoute);
 app.use(electivesRoute);
+app.use(nodeMailerRoute);
 
 //Using static files
 app.use(express.static(__dirname + '/public'));
@@ -45,6 +49,8 @@ Model.knex(knex);
 app.get("/", (req, res) => {
     return res.sendFile(__dirname + "/public/login.html");
  });
+
+
 
 
 
