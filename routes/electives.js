@@ -38,16 +38,22 @@ router.get("/myElectives", async (req, res) => {
 
 //No redirecting created yet
 router.post('/addElective', (req, res) => {
+    console.log(req.session);
+    
     const course_name = req.body.course_name;
+    const user_id = req.session.userId;
+    console.log(course_name);
+
+    console.log("User id", user_id);
+
 
     if (course_name) {
-        console.log(course_name);
         try {
                 Elective.query().insert({
-                    
-                    course_name
+                    course_name,
+                    user_id
                 }).then(createdElective => {
-                    return res.send({ response: `The elective ${createdElective.course_name} was created` });  
+                    return res.redirect("/addElective");
                 });
         } catch (error) {
             return res.status(500).send({ response: "Something went wrong with the DB" });

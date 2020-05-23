@@ -39,12 +39,16 @@ router.get("/password", (req, res) => {
 router.post('/home', async (req, res) => { //Requires login to access page.
     const { username, password } = req.body;
     try {
-        const accountInfo = await User.query().select("username", "password").where("username", username);
+        const accountInfo = await User.query().select("id", "username", "password").where("username", username);
         if (accountInfo.length !== 1) {
             return res.redirect("/login")
         }
         if (accountInfo.length === 1) {
+            console.log(req.session);
+            console.log("Session id:", accountInfo[0].id)
             if (password === accountInfo[0].password) {
+                req.session.userId = accountInfo[0].id;
+                console.log("Is this the session id?", req.session.userId);
                 req.session.login = true;
                 req.session.username = username;
                 return res.redirect("/home");
