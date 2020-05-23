@@ -4,6 +4,10 @@ const mysql = require('mysql');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const nodemailer = require("nodemailer");
+const exphbs = require('express-handlebars')
+
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
 //Passing jSON-objects and form data in HTML-files. Middleware
 app.use(express.urlencoded({ extended: false }))

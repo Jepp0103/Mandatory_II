@@ -9,19 +9,19 @@
     <h1>Nodemailer</h1>
     <div>
         <h3>Email a person:</h3>
-        {{msg}}
         <form action="/nodeMailer" method="POST">
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name" required><br>
+            <label for="email">Email:</label><br>
+            <input type="text" id="email" name="email" required><br>
 
-            <label for="emailAddress">Email address:</label><br>
-            <input type="text" id="emailAddress" name="emailAddress" required><br>
+            <label for="email">Topic:</label><br>
+            <input type="text" id="topic" name="topic" required><br>
             
             <label for="message">Message:</label><br>
             <textarea type="text" id="message" name="message" required></textarea>
             <br>
             <input type="submit" name="sendMail" value="Send mail">
         </form>
+        
         <br>
         <form action="/home" method="GET">
             <button>Cancel sending mail</button>

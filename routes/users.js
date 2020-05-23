@@ -40,7 +40,7 @@ router.post('/signUp', (req, res) => {
                         bcrypt.hash(password, saltRounds).then(hashedPassword => {
                         User.query().insert({
                             username,
-                            password : hashedPassword
+                            password //: hashedPassword, //Issue with encrypted password overwriting normal password.
                         }).then(createdUser => {
                             return res.send({ response: `The user ${createdUser.username} was created` });  
                         });

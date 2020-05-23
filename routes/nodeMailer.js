@@ -1,58 +1,45 @@
 const router = require('express').Router();
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 const fs = require("fs");
 
-
 router.get('/nodeMailer', (req, res) => {
+  if(req.session.login) {
     const page = fs.readFileSync("./public/nodeMailer.html", "utf8");
     return res.send(page);
-});
+  } else {
+      return res.redirect("/login");
+  }});
 
+//Nodemailer 
 router.post('/nodeMailer', (req, res) => {
-    const senderOutput = `
-        <h2> New mail received from:</h2>  
-        <ul>
-            <li>Name: ${req.body.name}</li>
-            <li>Email: ${req.body.email}</li>
-        </ul>
-        <h3>Message</h3>
-        <p>${req.body.message}</p>
-        `;  
-
-    //Nodemailer 
-    // create reusable transporter object using the default SMTP transport
+      console.log(req.body.email);
+      console.log(req.body.message);
+    //Create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false, // true for 465, false for other ports
+      service: 'Gmail',
       auth: {
-        user: 'jeppendyekjaer@gmail.com', // generated ethereal user
-        pass: 'jeppe123' 
+        user: 'testjeppe1995@gmail.com',
+        pass: 'TestJeppe12345' 
       },
-      tls: { 
-          rejectUnauthorized: false 
+      tls: {
+        rejectUnauthorized: false
       }
     });
-  
-    // send mail with defined transport object
+
+    //Send mail with defined transport object
     let info = {
-      from: '"Jeppe" <jeppendyekjaer@gmail.com>', // sender address
-      to: "nannestadhansen@gmail.com", // list of receivers
-      subject: "Mail message", // Subject line
-      text: "Hello world?", // plain text body
-      html: senderOutput // html body
+      from: '<testjeppe1995@gmail.com>', //Sender address
+      to: req.body.email, //List of receivers
+      subject: req.body.topic, //Subject line
+      text: req.body.message, //Plain text body
     };
 
-    transporter.sendMail(info, (error, info) => {
+    transporter.sendMail(info, (error, data) => {
         if (error) {
             return console.log(error);
         }
+        console.log("Message sent!")
     });
-
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  });
     
-    res.render('contact', {msg: 'Email has been sent'});
-});
-
   module.exports = router;
