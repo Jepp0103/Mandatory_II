@@ -42,7 +42,7 @@ router.post('/signUp', (req, res) => {
                             username,
                             password //: hashedPassword, //Issue with encrypted password overwriting normal password.
                         }).then(createdUser => {
-                            return res.send({ response: `The user ${createdUser.username} was created` });  
+                            return res.redirect("/login");
                         });
                       });
                     }

@@ -12,8 +12,9 @@ router.get('/nodeMailer', (req, res) => {
 
 //Nodemailer 
 router.post('/nodeMailer', (req, res) => {
-      console.log(req.body.email);
-      console.log(req.body.message);
+      console.log("Email sent to:", req.body.email);
+      console.log("Topic:", req.body.topic);
+      console.log("Message:", req.body.message);
     //Create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
       service: 'Gmail',
@@ -38,7 +39,8 @@ router.post('/nodeMailer', (req, res) => {
         if (error) {
             return console.log(error);
         }
-        console.log("Message sent!")
+        console.log("Message sent!");
+        return res.redirect("/nodeMailer");
     });
   });
     

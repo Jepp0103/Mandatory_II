@@ -1,4 +1,7 @@
 //Ajax call for getting the username
-$.get("/elective").done(data => { 
-    $("#electives").text(data.response);
+const courseRegex = /\course/g
+
+
+$.get("/myElectives").done(data => { 
+    $("#myElectives").text(data.response);
 });

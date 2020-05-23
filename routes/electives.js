@@ -23,8 +23,17 @@ router.get("/electives", (req, res) => { //Requires login to access
     }
 });
 
-router.get("/elective", (req, res) => {
-    return res.send({ response: req.session });
+router.get("/myElectives", async (req, res) => {
+    if(req.session.login) {
+        username = req.session.username;
+        const usersWithElectives = await User.query().select('username').where('username', username).withGraphFetched('electives');
+        const electives = usersWithElectives[0];
+        const stringElectives = JSON.stringify(electives);
+        console.log("Electives as strings", stringElectives);
+        return res.send({ response: stringElectives});
+    } else {
+     return res.redirect("/login");
+    }
 });
 
 //No redirecting created yet
@@ -35,6 +44,7 @@ router.post('/addElective', (req, res) => {
         console.log(course_name);
         try {
                 Elective.query().insert({
+                    
                     course_name
                 }).then(createdElective => {
                     return res.send({ response: `The elective ${createdElective.course_name} was created` });  
@@ -44,6 +54,5 @@ router.post('/addElective', (req, res) => {
         }
     } 
 });
-
 
 module.exports = router;
