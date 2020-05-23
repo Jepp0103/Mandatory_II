@@ -8,7 +8,6 @@ router.use(bodyParser.urlencoded({extended : true}));
 router.use(bodyParser.json());
 const mysql = require('mysql');
 const fs = require("fs");
-const swal = require('sweetAlert');
 
 
 
@@ -32,9 +31,9 @@ router.get("/username", (req, res) => {
     return res.send({ response: req.session });
 });
 
-
-
-
+router.get("/password", (req, res) => {
+    return res.send({ response: req.session });
+});
 
 //Checks if the user input is the same as in the database. Haven't 
 router.post('/home', async (req, res) => { //Requires login to access page.
