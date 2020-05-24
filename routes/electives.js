@@ -23,7 +23,8 @@ router.get("/electives", (req, res) => { //Requires login to access
     }
 });
 
-router.get("/myElectives", async (req, res) => {
+//Router for displaying the list of electives added to a certain user
+router.get("/myElectives", async (req, res) => { //Requires login to access
     if(req.session.login) {
         username = req.session.username;
         const usersWithElectives = await User.query().select('username').where('username', username).withGraphFetched('electives');
@@ -37,13 +38,11 @@ router.get("/myElectives", async (req, res) => {
 });
 
 //No redirecting created yet
-router.post('/addElective', (req, res) => {
-    console.log(req.session);
-    
+router.post('/addElective', (req, res) => {  
     const course_name = req.body.course_name;
     const user_id = req.session.userId;
-    console.log(course_name);
 
+    console.log("Course name:", course_name);
     console.log("User id", user_id);
 
 

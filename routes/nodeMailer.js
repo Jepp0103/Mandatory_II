@@ -22,7 +22,7 @@ router.post('/nodeMailer', (req, res) => {
         user: 'testjeppe1995@gmail.com',
         pass: 'TestJeppe12345' 
       },
-      tls: {
+      tls: { //Added as script, because the system is not running on an online domain but as a localhost service.
         rejectUnauthorized: false
       }
     });

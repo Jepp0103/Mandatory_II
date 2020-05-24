@@ -16,7 +16,6 @@ router.get("/signUp", (req, res) => {
     return res.send(page);
 });
 
-
 //No redirecting created yet
 router.post('/signUp', (req, res) => {
     const username = req.body.username;
@@ -26,7 +25,7 @@ router.post('/signUp', (req, res) => {
 
     if (username && password) {
         console.log(username, password);
-        // password validation
+        // Password validation
         if (password.length < 8) {
             return res.status(400).send({ response: "Password must be 8 characters or longer" });
         } else if (password != confirmPassword) {
