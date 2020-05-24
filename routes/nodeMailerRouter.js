@@ -15,6 +15,7 @@ router.post('/nodeMailer', (req, res) => {
       console.log("Email sent to:", req.body.email);
       console.log("Topic:", req.body.topic);
       console.log("Message:", req.body.message);
+      
     //Create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
       service: 'Gmail',
@@ -29,7 +30,7 @@ router.post('/nodeMailer', (req, res) => {
 
     //Send mail with defined transport object
     let info = {
-      from: '<testjeppe1995@gmail.com>', //Sender address
+      from: '<testjeppe1995@gmail.com>', //Sender email address
       to: req.body.email, //List of receivers
       subject: req.body.topic, //Subject line
       text: req.body.message, //Plain text body

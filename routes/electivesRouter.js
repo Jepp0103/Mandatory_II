@@ -1,5 +1,4 @@
 const router = require('express').Router();
-
 const User = require('../models/User.js');
 const Elective = require('../models/Elective.js');
 
@@ -7,7 +6,7 @@ const fs = require("fs");
 
 router.get("/addElective", (req, res) => { //Requires login to access
     if(req.session.login) {
-        const page = fs.readFileSync("./public/addElective.html", "utf8");
+        const page = fs.readFileSync("./public/electives/addElective.html", "utf8");
         return res.send(page);
     } else {
         return res.redirect("/login");
@@ -16,7 +15,7 @@ router.get("/addElective", (req, res) => { //Requires login to access
 
 router.get("/electives", (req, res) => { //Requires login to access
     if(req.session.login) {
-        const page = fs.readFileSync("./public/electives.html", "utf8");
+        const page = fs.readFileSync("./public/electives/electives.html", "utf8");
         return res.send(page);
     } else {
         return res.redirect("/login");
@@ -38,13 +37,11 @@ router.get("/myElectives", async (req, res) => { //Requires login to access
 });
 
 //No redirecting created yet
-router.post('/addElective', (req, res) => {  
+router.post('/addElective', (req, res) => {  //Requires login to access.
     const course_name = req.body.course_name;
     const user_id = req.session.userId;
-
     console.log("Course name:", course_name);
     console.log("User id", user_id);
-
 
     if (course_name) {
         try {

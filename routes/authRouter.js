@@ -20,7 +20,7 @@ router.get("/login", (req, res) => {
 
 router.get("/home", (req, res) => {
     if(req.session.login) {
-        const page = fs.readFileSync("./public/home.html", "utf8");
+        const page = fs.readFileSync("./public/home/home.html", "utf8");
         return res.send(page);
     } else {
         return res.redirect("/login");

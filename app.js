@@ -1,13 +1,6 @@
 const express = require("express");
 const app = express();
-const mysql = require('mysql');
 const session = require('express-session');
-const bodyParser = require('body-parser');
-const nodemailer = require("nodemailer");
-const exphbs = require('express-handlebars')
-
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
 
 //Passing jSON-objects and form data in HTML-files. Middleware
 app.use(express.urlencoded({ extended: false }))
@@ -22,14 +15,11 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-
-
 /* Setup the routes with app */
-const authRoute = require('./routes/auth.js');
-const usersRoute = require('./routes/users.js');
-const electivesRoute = require('./routes/electives.js');
-const nodeMailerRoute = require('./routes/nodeMailer.js');
-
+const authRoute = require('./routes/authRouter.js');
+const usersRoute = require('./routes/usersRouter.js');
+const electivesRoute = require('./routes/electivesRouter.js');
+const nodeMailerRoute = require('./routes/nodeMailerRouter.js');
 
 app.use(authRoute);
 app.use(usersRoute);
@@ -53,10 +43,6 @@ Model.knex(knex);
 app.get("/", (req, res) => {
     return res.sendFile(__dirname + "/public/login.html");
  });
-
-
-
-
 
 const PORT = 3000;
 
